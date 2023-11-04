@@ -4,16 +4,26 @@ import java.time.LocalDate;
 
 public class Todo {
 	private int id;
+	private String user;
 	private String description;
 	private LocalDate targetDate;
 	private boolean done;
 	
-	public Todo(int id, String description, LocalDate targetDate, boolean done) {
+	public Todo(int id, String user, String description, LocalDate targetDate, boolean done) {
 		super();
 		this.id = id;
+		this.user = user;
 		this.description = description;
 		this.targetDate = targetDate;
 		this.done = done;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
 	}
 
 	public int getId() {
