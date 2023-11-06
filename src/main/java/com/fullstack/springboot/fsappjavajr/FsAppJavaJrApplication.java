@@ -13,15 +13,13 @@ public class FsAppJavaJrApplication {
 		SpringApplication.run(FsAppJavaJrApplication.class, args);
 	}
 
-	// @Bean
-	// public WebMvcConfigurer corsConfigurer() {
-	// return new WebMvcConfigurer() {
-	// public void addCorsMapping(CorsRegistry registry) {
-	// registry.addMapping("/**")
-	// .allowedMethods("*")
-	// .allowedOrigins("http://localhost:5050");
-	// }
-	// };
-	// }
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**").allowedOrigins("http://localhost:5050").allowedMethods("*");
+			}
+		};
+	}
 
 }
