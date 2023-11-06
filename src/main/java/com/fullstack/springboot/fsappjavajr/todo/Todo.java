@@ -7,15 +7,19 @@ public class Todo {
 	private String user;
 	private String description;
 	private LocalDate targetDate;
-	private boolean done;
-	
+	private boolean isDone;
+
+	public Todo() {
+
+	}
+
 	public Todo(int id, String user, String description, LocalDate targetDate, boolean done) {
 		super();
 		this.id = id;
 		this.user = user;
 		this.description = description;
 		this.targetDate = targetDate;
-		this.done = done;
+		this.isDone = done;
 	}
 
 	public String getUser() {
@@ -51,16 +55,16 @@ public class Todo {
 	}
 
 	public boolean isDone() {
-		return done;
+		return isDone;
 	}
 
 	public void setDone(boolean done) {
-		this.done = done;
+		this.isDone = done;
 	}
 
 	@Override
 	public String toString() {
-		return "Todo [id=" + id + ", description=" + description + ", targetDate=" + targetDate + ", done=" + done
+		return "Todo [id=" + id + ", description=" + description + ", targetDate=" + targetDate + ", done=" + isDone
 				+ "]";
 	}
 }
