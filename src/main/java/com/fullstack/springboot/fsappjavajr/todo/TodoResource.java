@@ -23,7 +23,7 @@ public class TodoResource {
 	}
 
 	@GetMapping("users/{user}/todos")
-	public List<Todo> retrieveTodos(@PathVariable String user) {
+	public List<TodoSummary> retrieveTodos(@PathVariable String user) {
 		// return todoService.findTodosByUser(user);
 		return todoRepository.getTodosByUser(user);
 	}

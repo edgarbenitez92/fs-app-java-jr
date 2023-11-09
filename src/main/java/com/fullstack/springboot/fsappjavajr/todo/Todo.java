@@ -2,42 +2,45 @@ package com.fullstack.springboot.fsappjavajr.todo;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity(name = "TODO_DETAILS")
 public class Todo {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String user;
+	private String user_name;
 	private String description;
 	private LocalDate targetDate;
+	@Column(name = "done")
 	private boolean isDone;
 
 	public Todo() {
 
 	}
 
-	public Todo(int id, String user, String description, LocalDate targetDate, boolean done) {
+	public Todo(int id, String user_name, String description, LocalDate targetDate, boolean done) {
 		super();
 		this.id = id;
-		this.user = user;
+		this.user_name = user_name;
 		this.description = description;
 		this.targetDate = targetDate;
 		this.isDone = done;
 	}
 
 	public String getUser() {
-		return user;
+		return user_name;
 	}
 
-	public void setUser(String user) {
-		this.user = user;
+	public void setUser(String user_name) {
+		this.user_name = user_name;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -71,7 +74,7 @@ public class Todo {
 
 	@Override
 	public String toString() {
-		return "Todo [id=" + id + ", description=" + description + ", targetDate=" + targetDate + ", done=" + isDone
-				+ "]";
+		return "Todo [id=" + id + ", user_name=" + user_name + ", description=" + description + ", targetDate="
+				+ targetDate + ", isDone=" + isDone + "]";
 	}
 }
