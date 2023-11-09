@@ -30,4 +30,10 @@ public class TodoRepository {
 		String query = environment.getProperty("query.DELETE_TODO_BY_ID");
 		jdbcTemplate.update(query, user, id);
 	}
+
+	public Todo getTodoByUserId(String user, int id) {
+		String query = environment.getProperty("query.FIND_TODO_BY_ID");
+		Todo todo = jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper<>(Todo.class), user, id);
+		return todo;
+	}
 }
