@@ -2,7 +2,14 @@ package com.fullstack.springboot.fsappjavajr.todo;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
+@Entity(name = "TODO_DETAILS")
 public class Todo {
+	@Id
+	@GeneratedValue
 	private int id;
 	private String user;
 	private String description;

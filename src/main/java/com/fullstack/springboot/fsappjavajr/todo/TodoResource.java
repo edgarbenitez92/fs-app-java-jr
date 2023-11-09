@@ -15,14 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class TodoResource {
 
 	private TodoService todoService;
+	private TodoRepository todoRepository;
 
-	public TodoResource(TodoService todoService) {
+	public TodoResource(TodoService todoService, TodoRepository todoRepository) {
 		this.todoService = todoService;
+		this.todoRepository = todoRepository;
 	}
 
 	@GetMapping("users/{user}/todos")
 	public List<Todo> retrieveTodos(@PathVariable String user) {
-		return todoService.findTodosByUser(user);
+//		return todoService.findTodosByUser(user);
+		return todoRepository.getTodosByUser(user);
 	}
 
 	@GetMapping("users/{user}/todos/{id}")
