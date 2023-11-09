@@ -25,6 +25,7 @@ public class UserRepository {
 		User user = new User();
 		user.setId((int) userQueryResult.get("id"));
 		user.setUser((String) userQueryResult.get("user_name"));
+		user.setPassword((String) userQueryResult.get("password"));
 
 		return user;
 	}
