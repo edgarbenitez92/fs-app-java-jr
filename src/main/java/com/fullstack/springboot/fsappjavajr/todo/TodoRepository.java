@@ -41,7 +41,6 @@ public class TodoRepository {
 			return todo;
 		}).collect(Collectors.toList());
 
-		System.out.println("Todos: " + todos);
 		return todos;
 	}
 
@@ -54,5 +53,19 @@ public class TodoRepository {
 		String query = environment.getProperty("query.FIND_TODO_BY_ID");
 		Todo todo = jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper<>(Todo.class), user, id);
 		return todo;
+	}
+
+	public void createTodo(Todo todo) {
+		GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+		String query = environment.getProperty("query.CREATE_TODO");
+
+		jdbcTemplate.update(connection -> {
+			PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, todo.getUser());
+			ps.setString(2, todo.getDescription());
+			ps.setDate(3, Date.valueOf(todo.getTargetDate()));
+			ps.setBoolean(4, false);
+			return ps;
+		}, keyHolder);
 	}
 }
