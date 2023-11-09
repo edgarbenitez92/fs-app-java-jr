@@ -30,7 +30,8 @@ public class TodoResource {
 
 	@GetMapping("users/{user}/todos/{id}")
 	public Todo retrieveTodoById(@PathVariable String user, @PathVariable int id) {
-		return todoService.findTodoById(id);
+		// return todoService.findTodoById(id);
+		return todoRepository.getTodoByUserId(user, id);
 	}
 
 	@DeleteMapping("users/{user}/todos/{id}/delete-todo")
