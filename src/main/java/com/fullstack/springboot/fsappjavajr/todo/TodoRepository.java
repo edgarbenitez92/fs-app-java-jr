@@ -51,7 +51,17 @@ public class TodoRepository {
 
 	public Todo getTodoByUserId(String user, long id) {
 		String query = environment.getProperty("query.FIND_TODO_BY_ID");
-		Todo todo = jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper<>(Todo.class), user, id);
+		Map<String, Object> todoQuery = jdbcTemplate.queryForMap(query, user, id);
+
+		Todo todo = new Todo();
+		todo.setId((int) todoQuery.get("id"));
+		todo.setUser((String) todoQuery.get("user_name"));
+		todo.setDescription((String) todoQuery.get("description"));
+		todo.setDone((boolean) todoQuery.get("done"));
+
+		Date targetDate = (Date) todoQuery.get("targetDate");
+		todo.setTargetDate(targetDate.toLocalDate());
+
 		return todo;
 	}
 
