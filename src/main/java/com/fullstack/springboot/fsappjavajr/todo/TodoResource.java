@@ -24,7 +24,7 @@ public class TodoResource {
 
 	@GetMapping("users/{user}/todos")
 	public List<Todo> retrieveTodos(@PathVariable String user) {
-//		return todoService.findTodosByUser(user);
+		// return todoService.findTodosByUser(user);
 		return todoRepository.getTodosByUser(user);
 	}
 
@@ -35,7 +35,8 @@ public class TodoResource {
 
 	@DeleteMapping("users/{user}/todos/{id}/delete-todo")
 	public ResponseEntity<Void> deleteTodoById(@PathVariable String user, @PathVariable int id) {
-		todoService.deleteTodoByUserId(id);
+		// todoService.deleteTodoByUserId(id);
+		todoRepository.deleteTodoByUserId(user, id);
 		return ResponseEntity.noContent().build();
 	}
 
