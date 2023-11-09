@@ -3,21 +3,25 @@ package com.fullstack.springboot.fsappjavajr.todo;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class TodoRepository {
-
+	private Environment environment;
+	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-
-	private static String FIND_TODOS_BY_USER = """
-			SELECT * FROM TODO_DETAILS WHERE user_name = ?
-			""";
+	
+    public TodoRepository(Environment environment) {
+        this.environment = environment;
+    }
 
 	public List<Todo> getTodosByUser(String user) {
-		return jdbcTemplate.query(FIND_TODOS_BY_USER, new BeanPropertyRowMapper<>(Todo.class), user);
+		String query = environment.getProperty("query.FIND_TODOS_BY_USER");
+		List<Todo> todos = jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Todo.class), user);
+		return todos;
 	}
 }
