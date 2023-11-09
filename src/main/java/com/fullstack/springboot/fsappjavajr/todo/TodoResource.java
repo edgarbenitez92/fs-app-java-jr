@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TodoResource {
 
-	private TodoService todoService;
+	//	private TodoService todoService;
 	private TodoRepository todoRepository;
 
 	public TodoResource(TodoService todoService, TodoRepository todoRepository) {
-		this.todoService = todoService;
+		//	this.todoService = todoService;
 		this.todoRepository = todoRepository;
 	}
 
