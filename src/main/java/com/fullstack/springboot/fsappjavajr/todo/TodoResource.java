@@ -1,5 +1,6 @@
 package com.fullstack.springboot.fsappjavajr.todo;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -43,13 +44,19 @@ public class TodoResource {
 
 	@PutMapping("users/{user}/update-todo")
 	public Todo updateTodo(@PathVariable String user, @RequestBody Todo todo) {
-		todoService.updateTodo(todo);
-		return todo;
+		// todoService.updateTodo(todo);
+		// return todo;
+		Long id = todo.getId();
+		String description = todo.getDescription();
+		LocalDate targetDate = todo.getTargetDate();
+
+		return todoRepository.updateTodo(id, user, description, targetDate);
 	}
 
 	@PostMapping("users/{user}/create-todo")
 	public void createTodo(@PathVariable String user, @RequestBody Todo todo) {
-		// return todoService.addTodo(todo.getUser(), todo.getDescription(), todo.getTargetDate(), false);
+		// return todoService.addTodo(todo.getUser(), todo.getDescription(),
+		// todo.getTargetDate(), false);
 		todoRepository.createTodo(todo);
 	}
 }

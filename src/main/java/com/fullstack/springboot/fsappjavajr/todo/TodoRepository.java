@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
@@ -77,5 +76,11 @@ public class TodoRepository {
 			ps.setBoolean(4, false);
 			return ps;
 		}, keyHolder);
+	}
+
+	public Todo updateTodo(Long id, String user, String description, LocalDate targetDate) {
+		String query = environment.getProperty("query.UPDATE_TODO");
+		jdbcTemplate.update(query, description, targetDate, id);
+		return getTodoByUserId(user, id);
 	}
 }
