@@ -9,33 +9,31 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class JwtAuthenticationController {
-    
-    private final JwtTokenService tokenService;
-    
-    private final AuthenticationManager authenticationManager;
 
-    public JwtAuthenticationController(JwtTokenService tokenService, 
-            AuthenticationManager authenticationManager) {
-        this.tokenService = tokenService;
-        this.authenticationManager = authenticationManager;
-    }
+	private final JwtTokenService tokenService;
 
-    @PostMapping("/authenticate")
-    public ResponseEntity<JwtTokenResponse> generateToken(
-            @RequestBody JwtTokenRequest jwtTokenRequest) {
-        
-        var authenticationToken = 
-                new UsernamePasswordAuthenticationToken(
-                        jwtTokenRequest.username(), 
-                        jwtTokenRequest.password());
-        
-        var authentication = 
-                authenticationManager.authenticate(authenticationToken);
-        
-        var token = tokenService.generateToken(authentication);
-        
-        return ResponseEntity.ok(new JwtTokenResponse(token));
-    }
+	private final AuthenticationManager authenticationManager;
+
+	public JwtAuthenticationController(JwtTokenService tokenService, AuthenticationManager authenticationManager) {
+		this.tokenService = tokenService;
+		this.authenticationManager = authenticationManager;
+	}
+
+	@PostMapping("/authenticate")
+	public ResponseEntity<JwtTokenResponse> generateToken(@RequestBody JwtTokenRequest jwtTokenRequest) {
+
+		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+				jwtTokenRequest.username(), jwtTokenRequest.password());
+
+		System.out.println("auth: " + authenticationToken);
+
+		if (!authenticationToken.isAuthenticated()) {
+			throw new JwtNotFoundException(
+					String.format("Usuario no existe en la BD. Por favor lea las instrucciones."));
+		} else {
+			var authentication = authenticationManager.authenticate(authenticationToken);
+			var token = tokenService.generateToken(authentication);
+			return ResponseEntity.ok(new JwtTokenResponse(token));
+		}
+	}
 }
-
-
