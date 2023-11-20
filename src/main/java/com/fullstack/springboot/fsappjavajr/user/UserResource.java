@@ -1,5 +1,7 @@
 package com.fullstack.springboot.fsappjavajr.user;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +12,11 @@ public class UserResource {
 
 	public UserResource(UserRepository userRepository) {
 		this.userRepository = userRepository;
+	}
+
+	@GetMapping("users")
+	public List<User> getUsers() {
+		return userRepository.getUsers();
 	}
 
 	@GetMapping("user/{user}")
