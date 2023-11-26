@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(nullable = false)
 	private Integer id;
 	@Column(name = "user_name")
 	private String user;
@@ -51,7 +52,6 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", user_name=" + user + "]";
+		return "User [id=" + id + ", user=" + user + ", password=" + password + "]";
 	}
-
 }
